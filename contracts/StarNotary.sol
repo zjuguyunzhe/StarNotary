@@ -66,7 +66,7 @@ contract StarNotary is ERC721 {
 
     // Implement Task 1 lookUptokenIdToStarInfo
     function lookUptokenIdToStarInfo (uint _tokenId) public view returns (string memory) {
-        require(ownerOf(_tokenId) == _msgSender(), "xx");
+        require(ownerOf(_tokenId) == _msgSender(), "The owner of _tokenId should be the sender");
         Star memory star = tokenIdToStarInfo[_tokenId];
         return star.name;
         //1. You should return the Star saved in tokenIdToStarInfo mapping
@@ -76,7 +76,7 @@ contract StarNotary is ERC721 {
     function exchangeStars(uint256 _tokenId1, uint256 _tokenId2) public {
         address addr1 = ownerOf(_tokenId1);
         address addr2 = ownerOf(_tokenId2);
-        require(addr1 == _msgSender() || addr2 == _msgSender(), "xx");
+        require(addr1 == _msgSender() || addr2 == _msgSender(), "The owner of _tokenId1 or _tokenId2 should be the sender");
         _transferFrom(addr1, addr2, _tokenId1);
         _transferFrom(addr2, addr1, _tokenId2);
         //1. Passing to star tokenId you will need to check if the owner of _tokenId1 or _tokenId2 is the sender
@@ -87,6 +87,7 @@ contract StarNotary is ERC721 {
 
     // Implement Task 1 Transfer Stars
     function transferStar(address _to1, uint256 _tokenId) public {
+	    require(ownerOf(_tokenId) = _msgSender(), "msg.sender should be the ownerOf(_tokenId)");
         transferFrom(_msgSender(), _to1, _tokenId);
         //1. Check if the sender is the ownerOf(_tokenId)
         //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
